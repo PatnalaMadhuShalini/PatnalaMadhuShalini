@@ -134,7 +134,7 @@
 
 ### Languages:
 
-I'm fluent in **English,Hindi, Kannada **, and comfortable communicating in ** Telugu**.
+I'm fluent in **English, and comfortable communicating in **Hindi, Kannada and  Telugu**.
 
 <br>
 
