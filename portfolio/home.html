@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patnala Madhu Shalini - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .music-gradient {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .tech-gradient {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #667eea;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #667eea; }
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .timeline-scroll {
+            width: calc(200% + 2rem);
+        }
+        
+        .timeline-scroll:hover {
+            animation-play-state: paused;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 2s ease-in-out;
+        }
+        
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .timeline-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+        
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .timeline-dot {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .timeline-line {
+            background: linear-gradient(to bottom, #3b82f6, #6366f1);
+            animation: drawLine 2s ease-out;
+        }
+        
+        @keyframes drawLine {
+            from { height: 0; }
+            to { height: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-800">Patnala Madhu Shalini</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#" class="nav-link active text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" onclick="showPage('home')">Home</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" onclick="showPage('projects')">Projects</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" onclick="showPage('music')">Music</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium" onclick="showPage('contact')">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-600" title="Open mobile menu">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:text-blue-600" onclick="showPage('home')">Home</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:text-blue-600" onclick="showPage('projects')">Projects</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:text-blue-600" onclick="showPage('music')">Music</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:text-blue-600" onclick="showPage('contact')">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="gradient-bg min-h-screen flex items-center pt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="text-white">
+                        <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                            Hi, I'm <span class="typing-animation">Madhu Shalini</span>
+                        </h1>
+                        <p class="text-xl mb-8 opacity-90">
+                            Computer Science Engineering Student | Data Engineer | ML Enthusiast | Veena Player
+                        </p>
+                        <div class="flex flex-wrap gap-4 mb-8">
+                            <a href="mailto:madhushalinipatnala@gmail.com" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                                Get In Touch
+                            </a>
+                            <a href="#" onclick="showPage('projects')" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition duration-300">
+                                View Projects
+                            </a>
+                        </div>
+                        <div class="flex space-x-6">
+                            <a href="https://github.com/PatnalaMadhuShalini" class="text-white hover:text-gray-200 text-2xl" title="GitHub Profile">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/patnala-madhushalini-962220246" class="text-white hover:text-gray-200 text-2xl" title="LinkedIn Profile">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="tel:+917760753326" class="text-white hover:text-gray-200 text-2xl" title="Call Madhu Shalini">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="relative">
+                            <div id="profile-container" class="w-80 h-80 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm overflow-hidden border-4 border-white border-opacity-30">
+                                <div id="default-avatar" class="text-center text-white">
+                                    <i class="fas fa-user-graduate text-6xl mb-4"></i>
+                                    <p class="text-lg font-semibold">CSE Student</p>
+                                    <p class="text-sm opacity-80">Tech Enthusiast</p>
+                                </div>
+                                <img id="profile-image" class="w-full h-full object-cover hidden" alt="Profile Picture">
+                            </div>
+                            <button title="Upload Profile Photo" onclick="document.getElementById('photo-upload').click()" class="absolute bottom-4 right-4 w-12 h-12 bg-white text-purple-600 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 flex items-center justify-center">
+                                <i class="fas fa-camera text-lg"></i>
+                            </button>
+                            <label for="photo-upload" class="sr-only">Upload Profile Photo</label>
+                            <input type="file" id="photo-upload" accept="image/*" class="hidden" title="Upload Profile Photo" placeholder="Choose a profile image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Education</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto"></div>
+                </div>
+                
+                <!-- Education Timeline -->
+                <div class="relative">
+                    <!-- Timeline Line -->
+                    <div class="timeline-line absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-500 to-indigo-500"></div>
+                    
+                    <!-- Education Items -->
+                    <div class="space-y-12">
+                        <!-- B.Tech -->
+                        <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="flex items-center justify-end mb-4">
+                                        <div class="mr-4">
+                                            <h3 class="font-bold text-gray-800 text-lg">B.Tech Computer Science Engineering</h3>
+                                            <p class="text-blue-600 text-sm font-semibold">2021 - 2025</p>
+                                        </div>
+                                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-graduation-cap text-white"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 font-medium mb-2">Dr. Lankapalli Bullayya College</p>
+                                    <div class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                        CGPA: 8.4
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-dot w-6 h-6 bg-blue-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                            <div class="w-1/2 pl-8"></div>
+                        </div>
+                        
+                        <!-- Intermediate -->
+                        <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8"></div>
+                            <div class="timeline-dot w-6 h-6 bg-yellow-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                            <div class="w-1/2 pl-8">
+                                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border border-yellow-100 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-school text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 text-lg">Intermediate (12th)</h3>
+                                            <p class="text-yellow-600 text-sm font-semibold">2019 - 2021</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 font-medium mb-2">SVK Junior College</p>
+                                    <div class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                        Score: 9.28
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 10th Grade -->
+                        <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-6 border border-indigo-100 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="flex items-center justify-end mb-4">
+                                        <div class="mr-4">
+                                            <h3 class="font-bold text-gray-800 text-lg">10th Grade</h3>
+                                            <p class="text-indigo-600 text-sm font-semibold">2017-2019</p>
+                                        </div>
+                                        <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-book text-white"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 font-medium mb-2">Dr. KKR Gowtham School</p>
+                                    <div class="inline-block bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                        CGPA: 8.0
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-dot w-6 h-6 bg-indigo-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                            <div class="w-1/2 pl-8"></div>
+                        </div>
+
+                          <!---Schooling---->
+                    <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8"></div>
+                            <div class="timeline-dot w-6 h-6 bg-yellow-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                            <div class="w-1/2 pl-8">
+                                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border border-yellow-100 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-school text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 text-lg">Schooling(UKG-8th)</h3>
+                                            <p class="text-yellow-600 text-sm font-semibold">2008 - 2017</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 font-medium mb-2">Bharth Matha EnglishMedium School (BMEMS)</p>
+                                    <div class="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                        Score: 9.28
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    </div>
+                </div>
+             
+            </div>
+        
+        </section>
+
+        <!-- Experience Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Experience</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto"></div>
+                </div>
+                
+                <!-- Experience Timeline -->
+                <div class="relative">
+                    <!-- Timeline Line -->
+                    <div class="timeline-line absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500 to-pink-500"></div>
+                    
+                    <!-- Experience Items -->
+                    <div class="space-y-12">
+                        <!-- Current Training -->
+                        <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-100 shadow-md relative hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-bounce">
+                                        CURRENT
+                                    </div>
+                                    <div class="flex items-center justify-end mb-4">
+                                        <div class="mr-4">
+                                            <h3 class="font-bold text-gray-800 text-lg">Java Full Stack Development</h3>
+                                            <p class="text-orange-600 text-sm font-semibold">June 2024 - Present</p>
+                                        </div>
+                                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                                            <i class="fab fa-java text-white"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-700 font-medium mb-2">Tech Mahindra</p>
+                                    <p class="text-gray-600 text-sm">Currently undergoing comprehensive training in Java full stack development, covering both frontend and backend technologies.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-dot w-6 h-6 bg-orange-500 rounded-full border-4 border-white shadow-lg z-10 animate-pulse"></div>
+                            <div class="w-1/2 pl-8"></div>
+                        </div>
+                        
+                        <!-- L&T Internship -->
+                        <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8"></div>
+                            <div class="timeline-dot w-6 h-6 bg-purple-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                            <div class="w-1/2 pl-8">
+                                <div class="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-6 border border-purple-100 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-database text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 text-lg">Data Engineering Intern</h3>
+                                            <p class="text-purple-600 text-sm font-semibold">L&T - 2024</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Offline training program internship focusing on data pipeline development, analytics, and data engineering best practices.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BharatIntern -->
+                        <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8 text-right">
+                                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="flex items-center justify-end mb-4">
+                                        <div class="mr-4">
+                                            <h3 class="font-bold text-gray-800 text-lg">Frontend Development Intern</h3>
+                                            <p class="text-green-600 text-sm font-semibold">BharatIntern - 2023</p>
+                                        </div>
+                                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-code text-white"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Worked on frontend development projects using HTML, CSS, JavaScript, and Bootstrap to create responsive web applications.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-dot w-6 h-6 bg-green-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                            <div class="w-1/2 pl-8"></div>
+                        </div>
+                        
+                        <!-- Technohacks -->
+                        <div class="timeline-item flex items-center">
+                            <div class="w-1/2 pr-8"></div>
+                            <div class="timeline-dot w-6 h-6 bg-pink-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+                            <div class="w-1/2 pl-8">
+                                <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 border border-pink-100 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
+                                    <div class="flex items-center mb-4">
+                                        <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center mr-4">
+                                            <i class="fas fa-chart-line text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800 text-lg">Data Science Intern</h3>
+                                            <p class="text-pink-600 text-sm font-semibold">Technohacks - 2023</p>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">Specialized as Data-to-insights specialist, working with analytics, machine learning models, and data visualization.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">About Me</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                            I'm a Computer Science Engineering student with a passion for data engineering, machine learning, and web development. I'm flexible and adaptable, always eager to learn new technologies and explore diverse areas.
+                        </p>
+                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                            My goal is to contribute effectively to meaningful projects while aligning with organizational needs. I believe in continuous learning and applying my skills to solve real-world problems.
+                        </p>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            Beyond technology, I'm a classically trained Veena player with a deep appreciation for Carnatic music, which I've been learning since childhood. This musical background has enhanced my creativity, discipline, and attention to detail.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <i class="fas fa-code text-3xl text-blue-500 mb-2"></i>
+                                <h3 class="font-semibold text-gray-800">Web Development</h3>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <i class="fas fa-brain text-3xl text-purple-500 mb-2"></i>
+                                <h3 class="font-semibold text-gray-800">Machine Learning</h3>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <i class="fas fa-database text-3xl text-green-500 mb-2"></i>
+                                <h3 class="font-semibold text-gray-800">Data Engineering</h3>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <i class="fas fa-music text-3xl text-pink-500 mb-2"></i>
+                                <h3 class="font-semibold text-gray-800">Carnatic Music</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-8">Technical Skills</h3>
+                        
+                        <!-- Programming Languages -->
+                        <div class="mb-8">
+                            <h4 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-code text-blue-500 mr-2"></i>
+                                Programming Languages
+                            </h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border-l-4 border-blue-500">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-gray-800">Python</span>
+                                        <span class="text-sm text-blue-600 font-semibold">90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-blue-500" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border-l-4 border-orange-500">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-gray-800">Java</span>
+                                        <span class="text-sm text-orange-600 font-semibold">80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-orange-500" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border-l-4 border-purple-500">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-gray-800">C</span>
+                                        <span class="text-sm text-purple-600 font-semibold">75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-purple-500" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border-l-4 border-green-500">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-gray-800">SQL</span>
+                                        <span class="text-sm text-green-600 font-semibold">85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-green-500" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frameworks & Tools -->
+                        <div class="mb-8">
+                            <h4 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-tools text-purple-500 mr-2"></i>
+                                Frameworks & Tools
+                            </h4>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="bg-white p-3 rounded-lg shadow-md border border-gray-100 text-center hover:shadow-lg transition duration-300">
+                                    <i class="fab fa-react text-2xl text-blue-500 mb-2"></i>
+                                    <p class="text-sm font-medium text-gray-800">React</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg shadow-md border border-gray-100 text-center hover:shadow-lg transition duration-300">
+                                    <i class="fab fa-python text-2xl text-green-500 mb-2"></i>
+                                    <p class="text-sm font-medium text-gray-800">Django</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg shadow-md border border-gray-100 text-center hover:shadow-lg transition duration-300">
+                                    <i class="fas fa-flask text-2xl text-red-500 mb-2"></i>
+                                    <p class="text-sm font-medium text-gray-800">Flask</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg shadow-md border border-gray-100 text-center hover:shadow-lg transition duration-300">
+                                    <i class="fas fa-chart-bar text-2xl text-yellow-500 mb-2"></i>
+                                    <p class="text-sm font-medium text-gray-800">Power BI</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg shadow-md border border-gray-100 text-center hover:shadow-lg transition duration-300">
+                                    <i class="fas fa-chart-line text-2xl text-blue-500 mb-2"></i>
+                                    <p class="text-sm font-medium text-gray-800">Tableau</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg shadow-md border border-gray-100 text-center hover:shadow-lg transition duration-300">
+                                    <i class="fab fa-git-alt text-2xl text-orange-500 mb-2"></i>
+                                    <p class="text-sm font-medium text-gray-800">Git</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Databases & Cloud -->
+                        <div class="mb-8">
+                            <h4 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-database text-green-500 mr-2"></i>
+                                Databases & Cloud
+                            </h4>
+                            <div class="flex flex-wrap gap-3">
+                                <div class="flex items-center bg-blue-50 px-4 py-2 rounded-full border border-blue-200">
+                                    <i class="fas fa-database text-blue-500 mr-2"></i>
+                                    <span class="text-blue-800 font-medium">MySQL</span>
+                                </div>
+                                <div class="flex items-center bg-green-50 px-4 py-2 rounded-full border border-green-200">
+                                    <i class="fas fa-leaf text-green-500 mr-2"></i>
+                                    <span class="text-green-800 font-medium">MongoDB</span>
+                                </div>
+                                <div class="flex items-center bg-indigo-50 px-4 py-2 rounded-full border border-indigo-200">
+                                    <i class="fas fa-elephant text-indigo-500 mr-2"></i>
+                                    <span class="text-indigo-800 font-medium">PostgreSQL</span>
+                                </div>
+                                <div class="flex items-center bg-orange-50 px-4 py-2 rounded-full border border-orange-200">
+                                    <i class="fab fa-aws text-orange-500 mr-2"></i>
+                                    <span class="text-orange-800 font-medium">AWS</span>
+                                </div>
+                                <div class="flex items-center bg-blue-50 px-4 py-2 rounded-full border border-blue-200">
+                                    <i class="fab fa-microsoft text-blue-500 mr-2"></i>
+                                    <span class="text-blue-800 font-medium">Azure</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Languages -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-globe text-pink-500 mr-2"></i>
+                                Languages
+                            </h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
+                                    <span class="font-medium text-gray-800">English</span>
+                                    <div class="flex space-x-1">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-pink-50 to-pink-100 rounded-lg">
+                                    <span class="font-medium text-gray-800">Hindi</span>
+                                    <div class="flex space-x-1">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-gray-300"></i>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg">
+                                    <span class="font-medium text-gray-800">Telugu</span>
+                                    <div class="flex space-x-1">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
+                                    <span class="font-medium text-gray-800">Kannada</span>
+                                    <div class="flex space-x-1">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-gray-300"></i>
+                                        <i class="fas fa-star text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Certifications Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Certifications</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-orange-500 to-red-500 mx-auto"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fab fa-microsoft text-2xl text-blue-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">Microsoft Azure AI Fundamentals</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fab fa-html5 text-2xl text-orange-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">MTA: HTML5 Application Development</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fab fa-python text-2xl text-green-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">Python Development & Data Science</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-chart-bar text-2xl text-yellow-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">Power BI - Infosys Spring Board</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fab fa-aws text-2xl text-orange-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">AWS Cloud Practitioner Essentials</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-satellite text-2xl text-blue-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">AI/ML for Geodata Analysis (ISRO)</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-shield-alt text-2xl text-red-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">Cybersecurity Essentials - NASSCOM</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-database text-2xl text-purple-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">SQL - HackerRank</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 shadow-md card-hover">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-brain text-2xl text-pink-600 mr-3"></i>
+                            <h3 class="font-semibold text-gray-800">Generative AI - NASSCOM</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="py-20 gradient-bg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">Achievements & Participations</h2>
+                    <div class="w-24 h-1 bg-white mx-auto"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Tech Achievements -->
+                    <div class="achievement-card rounded-xl p-6 text-white card-hover">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-trophy text-4xl text-yellow-400 mb-3"></i>
+                            <h3 class="text-xl font-bold">Smart India Hackathon</h3>
+                            <p class="text-sm opacity-80">2021 - 2024</p>
+                        </div>
+                        <p class="text-sm opacity-90">Participated in India's biggest hackathon, working on innovative solutions to real-world problems.</p>
+                    </div>
+                    
+                    <div class="achievement-card rounded-xl p-6 text-white card-hover">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-award text-4xl text-blue-400 mb-3"></i>
+                            <h3 class="text-xl font-bold">Dr. G.V.V. Rao Awards</h3>
+                            <p class="text-sm opacity-80">2023</p>
+                        </div>
+                        <p class="text-sm opacity-90">Recognized for innovative engineering ideas and solutions.</p>
+                    </div>
+                    
+                    <div class="achievement-card rounded-xl p-6 text-white card-hover">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-medal text-4xl text-green-400 mb-3"></i>
+                            <h3 class="text-xl font-bold">Paper Presentation</h3>
+                            <p class="text-sm opacity-80">2nd Prize - 2023</p>
+                        </div>
+                        <p class="text-sm opacity-90">Won 2nd prize for research on Organoid Intelligence.</p>
+                    </div>
+                    
+                    <div class="achievement-card rounded-xl p-6 text-white card-hover">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-globe text-4xl text-purple-400 mb-3"></i>
+                            <h3 class="text-xl font-bold">Major League Hacking</h3>
+                            <p class="text-sm opacity-80">2021 - 2024</p>
+                        </div>
+                        <p class="text-sm opacity-90">Engaged in global hackathons with diverse teams.</p>
+                    </div>
+                    
+                    <div class="achievement-card rounded-xl p-6 text-white card-hover">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-music text-4xl text-pink-400 mb-3"></i>
+                            <h3 class="text-xl font-bold">Veena Performance</h3>
+                            <p class="text-sm opacity-80">1st Place - 2022</p>
+                        </div>
+                        <p class="text-sm opacity-90">Won 1st place at cultural event in Ramanarayam, Vizag.</p>
+                    </div>
+                    
+                    <div class="achievement-card rounded-xl p-6 text-white card-hover">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-lightbulb text-4xl text-orange-400 mb-3"></i>
+                            <h3 class="text-xl font-bold">Entrepreneurship Events</h3>
+                            <p class="text-sm opacity-80">2021 - 2024</p>
+                        </div>
+                        <p class="text-sm opacity-90">Active participation in ideation contests and innovation events.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- About -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Patnala Madhu Shalini</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Computer Science Engineering student passionate about data engineering, machine learning, and Carnatic music. Always eager to learn and contribute to meaningful projects.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" onclick="showPage('home')" class="text-gray-300 hover:text-white transition duration-300">Home</a></li>
+                            <li><a href="#" onclick="showPage('projects')" class="text-gray-300 hover:text-white transition duration-300">Projects</a></li>
+                            <li><a href="#" onclick="showPage('music')" class="text-gray-300 hover:text-white transition duration-300">Music</a></li>
+                            <li><a href="#" onclick="showPage('contact')" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Core Skills</h3>
+                        <ul class="space-y-2 text-gray-300 text-sm">
+                            <li>• Data Engineering</li>
+                            <li>• Machine Learning</li>
+                            <li>• Web Development</li>
+                            <li>• Veena Performance</li>
+                            <li>• Research & Innovation</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Get In Touch</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                                <a href="mailto:madhushalinipatnala@gmail.com" class="text-gray-300 hover:text-white text-sm">madhushalinipatnala@gmail.com</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-green-400 mr-3"></i>
+                                <a href="tel:+917760753326" class="text-gray-300 hover:text-white text-sm">+91 7760753326</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-red-400 mr-3"></i>
+                                <span class="text-gray-300 text-sm">Visakhapatnam, India</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div class="flex space-x-4 mt-6">
+                            <a href="https://github.com/PatnalaMadhuShalini" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/patnala-madhushalini-962220246" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://olive-danika-46.tiiny.site" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Bar -->
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-300 text-sm">
+                            © 2024 Patnala Madhu Shalini. All rights reserved.
+                        </p>
+                        <p class="text-gray-400 text-xs mt-2 md:mt-0">
+                            Built with passion for technology and music 🎵
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Projects Page -->
+    <div id="projects" class="page">
+        <section class="pt-24 pb-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold text-gray-800 mb-4">My Projects</h1>
+                    <p class="text-xl text-gray-600 mb-8">Explore my technical work and innovations</p>
+                    <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto"></div>
+                </div>
+                
+                <!-- Project Categories -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition duration-300">
+                        All Projects
+                    </button>
+                    <button class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition duration-300">
+                        Web Development
+                    </button>
+                    <button class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition duration-300">
+                        Machine Learning
+                    </button>
+                    <button class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition duration-300">
+                        Data Engineering
+                    </button>
+                </div>
+                
+                <!-- Project Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <!-- Gluco Vigil Project -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                        <div class="tech-gradient h-48 flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-gray-800">Gluco Vigil</h3>
+                                <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full font-semibold">2025</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-3 font-medium">Diabetes Early Detection & Management</p>
+                            <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                                Developing a comprehensive web application using TypeScript-based algorithms to assess health parameters including blood sugar, BMI, blood pressure, and lifestyle factors. Features real-time monitoring, AI-powered risk calculation, and personalized health recommendations.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">React</span>
+                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-sm rounded-full">TypeScript</span>
+                                <span class="px-3 py-1 bg-cyan-100 text-cyan-800 text-sm rounded-full">TailwindCSS</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">Node.js</span>
+                                <span class="px-3 py-1 bg-purple-100 text-purple-800 text-sm rounded-full">PostgreSQL</span>
+                            </div>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    Real-time health monitoring system
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    AI-powered risk assessment
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    Secure authentication & data storage
+                                </div>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-blue-500 hover:text-blue-700 font-semibold text-sm">
+                                    <i class="fab fa-github mr-2"></i>View Code
+                                </a>
+                                <a href="#" class="text-green-500 hover:text-green-700 font-semibold text-sm">
+                                    <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Farmer's Dashboard Project -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                        <div class="music-gradient h-48 flex items-center justify-center">
+                            <i class="fas fa-seedling text-6xl text-white"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-gray-800">Farmer's Web Dashboard</h3>
+                                <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-semibold">Aug 2024</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-3 font-medium">Crop Monitoring & Analytics Platform</p>
+                            <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                                Developed a comprehensive web dashboard for real-time monitoring of soil and weather conditions using IoT sensors. Integrated machine learning models for crop yield prediction and implemented web scraping for market data analysis.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full">Python</span>
+                                <span class="px-3 py-1 bg-red-100 text-red-800 text-sm rounded-full">ESP32</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">IoT Sensors</span>
+                                <span class="px-3 py-1 bg-purple-100 text-purple-800 text-sm rounded-full">ML Models</span>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">REST APIs</span>
+                            </div>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    Real-time soil & weather monitoring
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    ML-based crop yield prediction
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                    Market data integration
+                                </div>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-blue-500 hover:text-blue-700 font-semibold text-sm">
+                                    <i class="fab fa-github mr-2"></i>View Code
+                                </a>
+                                <a href="#" class="text-green-500 hover:text-green-700 font-semibold text-sm">
+                                    <i class="fas fa-external-link-alt mr-2"></i>Documentation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add Project Section -->
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Add Your Projects</h3>
+                    <p class="text-gray-600 mb-6">This section is ready for you to add your project details, images, and links. You can customize each project card with your specific information.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">What to Include:</h4>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• Project screenshots or demos</li>
+                                <li>• Technology stack used</li>
+                                <li>• GitHub repository links</li>
+                                <li>• Live demo links</li>
+                                <li>• Project challenges and solutions</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Project Categories:</h4>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• Web Development Projects</li>
+                                <li>• Machine Learning Models</li>
+                                <li>• Data Engineering Pipelines</li>
+                                <li>• Hackathon Submissions</li>
+                                <li>• Research Projects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- About -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Patnala Madhu Shalini</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Computer Science Engineering student passionate about data engineering, machine learning, and Carnatic music. Always eager to learn and contribute to meaningful projects.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" onclick="showPage('home')" class="text-gray-300 hover:text-white transition duration-300">Home</a></li>
+                            <li><a href="#" onclick="showPage('projects')" class="text-gray-300 hover:text-white transition duration-300">Projects</a></li>
+                            <li><a href="#" onclick="showPage('music')" class="text-gray-300 hover:text-white transition duration-300">Music</a></li>
+                            <li><a href="#" onclick="showPage('contact')" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Core Skills</h3>
+                        <ul class="space-y-2 text-gray-300 text-sm">
+                            <li>• Data Engineering</li>
+                            <li>• Machine Learning</li>
+                            <li>• Web Development</li>
+                            <li>• Veena Performance</li>
+                            <li>• Research & Innovation</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Get In Touch</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                                <a href="mailto:madhushalinipatnala@gmail.com" class="text-gray-300 hover:text-white text-sm">madhushalinipatnala@gmail.com</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-green-400 mr-3"></i>
+                                <a href="tel:+917760753326" class="text-gray-300 hover:text-white text-sm">+91 7760753326</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-red-400 mr-3"></i>
+                                <span class="text-gray-300 text-sm">Visakhapatnam, India</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div class="flex space-x-4 mt-6">
+                            <a href="https://github.com/PatnalaMadhuShalini" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/patnala-madhushalini-962220246" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://olive-danika-46.tiiny.site" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Bar -->
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-300 text-sm">
+                            © 2024 Patnala Madhu Shalini. All rights reserved.
+                        </p>
+                        <p class="text-gray-400 text-xs mt-2 md:mt-0">
+                            Built with passion for technology and music 🎵
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Music Page -->
+    <div id="music" class="page">
+        <section class="pt-24 pb-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold text-gray-800 mb-4">My Musical Journey</h1>
+                    <p class="text-xl text-gray-600 mb-8">Carnatic Classical Music & Veena Performance</p>
+                    <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-red-500 mx-auto"></div>
+                </div>
+                
+                <!-- Music Hero Section -->
+                <div class="music-gradient rounded-2xl p-12 text-white mb-16">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6">Veena Player & Carnatic Music Enthusiast</h2>
+                            <p class="text-lg mb-6 opacity-90">
+                                Music has been an integral part of my life since childhood. I am a trained Veena player, deeply passionate about Carnatic classical music. This musical journey has not only been a creative outlet but has also instilled discipline, patience, and attention to detail that translates into my technical work.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center p-4 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm">
+                                    <i class="fas fa-music text-3xl mb-2"></i>
+                                    <h3 class="font-semibold">Veena</h3>
+                                </div>
+                                <div class="text-center p-4 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm">
+                                    <i class="fas fa-award text-3xl mb-2"></i>
+                                    <h3 class="font-semibold">Award-Winning</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-80 h-80 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                <i class="fas fa-music text-8xl text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Musical Achievements -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-trophy text-2xl text-yellow-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">1st Place Winner</h3>
+                            <p class="text-gray-600">Cultural Event - Ramanarayam, Vizag (2022)</p>
+                        </div>
+                        <p class="text-gray-600 text-center">
+                            Won first place for Veena performance showcasing traditional Carnatic compositions and demonstrating technical excellence in classical music.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-silver-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-medal text-2xl text-gray-600"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">2nd Place Winner</h3>
+                            <p class="text-gray-600">Cultural Event by Josh (2023)</p>
+                        </div>
+                        <p class="text-gray-600 text-center">
+                            Secured second place for musical performance showcasing Carnatic classical skills and connecting with diverse audiences.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Musical Skills & Training -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-16">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Musical Training & Skills</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-graduation-cap text-3xl text-pink-600"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Formal Training</h4>
+                            <p class="text-gray-600">
+                                Formal training in Carnatic classical music since childhood, with a focus on the Veena, one of India's oldest and most revered string instruments.
+                            </p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-microphone text-3xl text-purple-600"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Performances</h4>
+                            <p class="text-gray-600">
+                                Regular performances at cultural events, college festivals, and community gatherings, showcasing traditional ragas and compositions.
+                            </p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-lightbulb text-3xl text-blue-600"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Creative Influence</h4>
+                            <p class="text-gray-600">
+                                My musical background enhances my creative thinking, problem-solving abilities, and brings a unique perspective to my technical projects.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Music Gallery Section -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Performance Gallery</h3>
+                    <p class="text-center text-gray-600 mb-8">
+                        This section is ready for you to add photos, videos, and recordings from your musical performances and events.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Placeholder for performance photos -->
+                        <div class="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center text-gray-600">
+                                <i class="fas fa-camera text-4xl mb-3"></i>
+                                <p class="font-semibold">Performance Photo</p>
+                                <p class="text-sm">Add your concert photos</p>
+                            </div>
+                        </div>
+                        
+                        <div class="aspect-square bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center text-gray-600">
+                                <i class="fas fa-video text-4xl mb-3"></i>
+                                <p class="font-semibold">Performance Video</p>
+                                <p class="text-sm">Add video recordings</p>
+                            </div>
+                        </div>
+                        
+                        <div class="aspect-square bg-gradient-to-br from-green-100 to-teal-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center text-gray-600">
+                                <i class="fas fa-certificate text-4xl mb-3"></i>
+                                <p class="font-semibold">Certificates</p>
+                                <p class="text-sm">Add music certificates</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-3">What You Can Add Here:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
+                            <ul class="space-y-2">
+                                <li>• Performance photos and videos</li>
+                                <li>• Audio recordings of your music</li>
+                                <li>• Certificates and awards</li>
+                            </ul>
+                            <ul class="space-y-2">
+                                <li>• Event programs and flyers</li>
+                                <li>• Photos with other musicians</li>
+                                <li>• Behind-the-scenes content</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- About -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Patnala Madhu Shalini</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Computer Science Engineering student passionate about data engineering, machine learning, and Carnatic music. Always eager to learn and contribute to meaningful projects.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" onclick="showPage('home')" class="text-gray-300 hover:text-white transition duration-300">Home</a></li>
+                            <li><a href="#" onclick="showPage('projects')" class="text-gray-300 hover:text-white transition duration-300">Projects</a></li>
+                            <li><a href="#" onclick="showPage('music')" class="text-gray-300 hover:text-white transition duration-300">Music</a></li>
+                            <li><a href="#" onclick="showPage('contact')" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Core Skills</h3>
+                        <ul class="space-y-2 text-gray-300 text-sm">
+                            <li>• Data Engineering</li>
+                            <li>• Machine Learning</li>
+                            <li>• Web Development</li>
+                            <li>• Veena Performance</li>
+                            <li>• Research & Innovation</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Get In Touch</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                                <a href="mailto:madhushalinipatnala@gmail.com" class="text-gray-300 hover:text-white text-sm">madhushalinipatnala@gmail.com</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-green-400 mr-3"></i>
+                                <a href="tel:+917760753326" class="text-gray-300 hover:text-white text-sm">+91 7760753326</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-red-400 mr-3"></i>
+                                <span class="text-gray-300 text-sm">Visakhapatnam, India</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div class="flex space-x-4 mt-6">
+                            <a href="https://github.com/PatnalaMadhuShalini" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/patnala-madhushalini-962220246" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://olive-danika-46.tiiny.site" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Bar -->
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-300 text-sm">
+                            © 2024 Patnala Madhu Shalini. All rights reserved.
+                        </p>
+                        <p class="text-gray-400 text-xs mt-2 md:mt-0">
+                            Built with passion for technology and music 🎵
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="pt-24 pb-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-bold text-gray-800 mb-4">Get In Touch</h1>
+                    <p class="text-xl text-gray-600 mb-8">Let's connect and explore opportunities together</p>
+                    <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Information -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-8">Contact Information</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-blue-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Email</h3>
+                                    <a href="mailto:madhushalinipatnala@gmail.com" class="text-blue-600 hover:text-blue-800">
+                                        madhushalinipatnala@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone text-green-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Phone</h3>
+                                    <a href="tel:+917760753326" class="text-green-600 hover:text-green-800">
+                                        +91 7760753326
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fab fa-linkedin text-blue-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">LinkedIn</h3>
+                                    <a href="https://www.linkedin.com/in/patnala-madhushalini-962220246" class="text-blue-600 hover:text-blue-800">
+                                        patnala-madhushalini-962220246
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fab fa-github text-gray-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">GitHub</h3>
+                                    <a href="https://github.com/PatnalaMadhuShalini" class="text-gray-600 hover:text-gray-800">
+                                        PatnalaMadhuShalini
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-globe text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Portfolio</h3>
+                                    <a href="https://olive-danika-46.tiiny.site" class="text-purple-600 hover:text-purple-800">
+                                        olive-danika-46.tiiny.site
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-6 bg-white rounded-lg shadow-md">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Let's Collaborate!</h3>
+                            <p class="text-gray-600 mb-4">
+                                I'm always excited to work on innovative projects and explore new opportunities. Whether it's:
+                            </p>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• <strong>Technical Projects:</strong> Web development, ML, or data engineering</li>
+                                <li>• <strong>Research Collaborations:</strong> Academic or industry research</li>
+                                <li>• <strong>Hackathons:</strong> Team up for competitive coding events</li>
+                                <li>• <strong>Musical Performances:</strong> Cultural events and concerts</li>
+                                <li>• <strong>Mentorship:</strong> Learning and knowledge sharing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form -->
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-8">Send a Message</h2>
+                        <p class="text-sm text-gray-500 mb-6 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <strong>Demo Form:</strong> This is a sample contact form. In a real implementation, you would connect this to a backend service or email service.
+                        </p>
+                        
+                        <form class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Your Name">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your.email@example.com">
+                            </div>
+                            
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                                <select id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                    <option>General Inquiry</option>
+                                    <option>Project Collaboration</option>
+                                    <option>Job Opportunity</option>
+                                    <option>Hackathon Team-up</option>
+                                    <option>Musical Performance</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Tell me about your project or inquiry..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition duration-300">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- About -->
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Patnala Madhu Shalini</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Computer Science Engineering student passionate about data engineering, machine learning, and Carnatic music. Always eager to learn and contribute to meaningful projects.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" onclick="showPage('home')" class="text-gray-300 hover:text-white transition duration-300">Home</a></li>
+                            <li><a href="#" onclick="showPage('projects')" class="text-gray-300 hover:text-white transition duration-300">Projects</a></li>
+                            <li><a href="#" onclick="showPage('music')" class="text-gray-300 hover:text-white transition duration-300">Music</a></li>
+                            <li><a href="#" onclick="showPage('contact')" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Core Skills</h3>
+                        <ul class="space-y-2 text-gray-300 text-sm">
+                            <li>• Data Engineering</li>
+                            <li>• Machine Learning</li>
+                            <li>• Web Development</li>
+                            <li>• Veena Performance</li>
+                            <li>• Research & Innovation</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Get In Touch</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                                <a href="mailto:madhushalinipatnala@gmail.com" class="text-gray-300 hover:text-white text-sm">madhushalinipatnala@gmail.com</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-green-400 mr-3"></i>
+                                <a href="tel:+917760753326" class="text-gray-300 hover:text-white text-sm">+91 7760753326</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-red-400 mr-3"></i>
+                                <span class="text-gray-300 text-sm">Visakhapatnam, India</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div class="flex space-x-4 mt-6">
+                            <a href="https://github.com/PatnalaMadhuShalini" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/patnala-madhushalini-962220246" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://olive-danika-46.tiiny.site" class="text-gray-300 hover:text-white text-xl transition duration-300">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Bar -->
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-300 text-sm">
+                            © 2024 Patnala Madhu Shalini. All rights reserved.
+                        </p>
+                        <p class="text-gray-400 text-xs mt-2 md:mt-0">
+                            Built with passion for technology and music 🎵
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Typing animation
+        const texts = ['Patnala Madhu Shalini', 'a Developer', 'a Musician', 'an Innovator'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeWriter() {
+            const typingElement = document.querySelector('.typing-animation');
+            if (!typingElement) return;
+            
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+            }
+            
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeWriter, speed);
+        }
+        
+        // Start typing animation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(typeWriter, 1000);
+        });
+        
+        // Photo upload functionality
+        document.getElementById('photo-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profileImage = document.getElementById('profile-image');
+                    const defaultAvatar = document.getElementById('default-avatar');
+                    
+                    profileImage.src = e.target.result;
+                    profileImage.classList.remove('hidden');
+                    defaultAvatar.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Contact form submission (demo)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! This is a demo form. In a real implementation, this would send your message.');
+        });
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'972bbd5c628d8030',t:'MTc1NTc5NjE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
